@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush | AR/VR & Tech Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --accent-color: #38bdf8;
+            --card-bg: #1e293b;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+
+        nav h1 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5% 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section with XR Background */
+        .hero-wrapper {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            /* XR/VR Background Image from Unsplash */
+            background-image: url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Dark overlay to make text readable */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 100%);
+            z-index: 1;
+        }
+
+        #home {
+            position: relative;
+            z-index: 2; /* Puts text above the overlay */
+            padding: 0 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            border-bottom: 2px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        #home h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #home h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .contact-links {
+            margin-top: 2rem;
+        }
+
+        .contact-links a {
+            display: inline-block;
+            margin-right: 1rem;
+            padding: 0.6rem 1.8rem;
+            background: var(--accent-color);
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .contact-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(56, 189, 248, 0.4);
+        }
+
+        .contact-links a.outline {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .contact-links a.outline:hover {
+            background: var(--accent-color);
+            color: #0f172a;
+        }
+
+        /* Skills Matrix */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .skill-category h4 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tag {
+            background: #334155;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            border: 1px solid #475569;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-date {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            background: #334155;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .project-tech {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .project-card ul {
+            margin-left: 1.2rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .project-card li {
+            margin-bottom: 0.6rem;
+        }
+
+        /* Experience */
+        .timeline-item {
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 12px;
+            border-left: 4px solid #475569;
+            transition: border-color 0.3s;
+        }
+
+        .timeline-item:hover {
+            border-left-color: var(--accent-color);
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-role {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            margin-top: 4rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>Ayush.</h1>
+        <div class="nav-links">
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#achievements">Achievements</a>
+        </div>
+    </nav>
+
+    <div class="hero-wrapper">
+        <div class="hero-overlay"></div>
+        <section id="home">
+            <h1>Hi, I'm Ayush</h1>
+            <h3>AR/VR Developer & Prototyping Engineer</h3>
+            <p style="max-width: 650px; font-size: 1.1rem; color: #cbd5e1; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">
+                I am a B.Tech student at IIT Patna specializing in Spatial Computing, Physics Simulations, and high-performance development using Unity and C#. Building the bridge between digital environments and physical reality.
+            </p>
+            <div class="contact-links">
+                <a href="https://github.com/Ahmev-Ayush" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/ayush-029623393" target="_blank" class="outline">LinkedIn</a>
+            </div>
+        </section>
+    </div>
+
+    <section id="skills">
+        <h2>Technical Arsenal</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h4>Languages</h4>
+                <div class="skill-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Developer Tools</h4>
+                <div class="skill-tags">
+                    <span class="tag">Unity</span>
+                    <span class="tag">Unreal Engine</span>
+                    <span class="tag">Blender</span>
+                    <span class="tag">Git/GitHub</span>
+                    <span class="tag">Param Rudra (HPC)</span>
+                    <span class="tag">ARCore</span>
+                    <span class="tag">SolidWorks</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Technologies</h4>
+                <div class="skill-tags">
+                    <span class="tag">WebRTC</span>
+                    <span class="tag">Unity Render Streaming</span>
+                    <span class="tag">Microsoft Playfab</span>
+                    <span class="tag">AR/VR Spatial Computing</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4>Core Concepts</h4>
+                <div class="skill-tags">
+                    <span class="tag">Data Structures & Algorithms</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">3D Math</span>
+                    <span class="tag">Thermal Optimization</span>
+                    <span class="tag">Physics Simulation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Featured XR Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>AR WorkSpace</h3>
+                    <span class="project-date">Mar 2026 – Present</span>
+                </div>
+                <div class="project-tech">UNITY • C# • WEBRTC • RENDER STREAMING</div>
+                <ul>
+                    <li>Developed an AR app mirroring desktop screens onto physical walls as virtual high-def monitors.</li>
+                    <li>Implemented Google Cardboard support to enable a hands-free spatial interface.</li>
+                    <li>Engineered a thermal optimization strategy for Android by streamlining render pipelines.</li>
+                    <li>Achieved a stable 30-60 FPS live feed from workstation to mobile using WebRTC.</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>AR Tennis Mobile Game</h3>
+                    <span class="project-date">Jan – Apr 2026</span>
+                </div>
+                <div class="project-tech">UNITY • C# • ARCORE • PLAYFAB</div>
+                <ul>
+                    <li>Built a fully playable AR sports game with 3D math-based collision detection and camera-tracked racket physics.</li>
+                    <li>Integrated Microsoft Playfab backend for cloud-based leaderboards and persistent player data.</li>
+                    <li>Designed Diegetic Spatial UI (in-game scoreboard) to enhance player immersion.</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>AR Car Simulation</h3>
+                    <span class="project-date">Nov 2025 – Jan 2026</span>
+                </div>
+                <div class="project-tech">UNITY • C# • ARCORE</div>
+                <ul>
+                    <li>Created a physics-based AR car controller optimized for surface plane detection and real-world environmental understanding.</li>
+                    <li>Developed an extensible architecture focusing on modular script design for future multiplayer integration.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience & Leadership</h2>
+        
+        <div class="timeline-item">
+            <div class="timeline-header">
+                <h3>Tinkerer's Lab - IIT Patna</h3>
+                <span class="project-date">Aug 2023 – Present</span>
+            </div>
+            <div class="timeline-role">Coordinator</div>
+            <ul style="margin-left: 1.2rem; color: #cbd5e1; margin-top: 1rem;">
+                <li>Oversee and mentor a team of 8+ sub-coordinators, managing daily lab operations and technical project roadmaps for the institute's primary makerspace.</li>
+                <li>Facilitated 5+ technical workshops on 3D design and robotics for 100+ students, providing hands-on mentorship.</li>
+            </ul>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-header">
+                <h3>Robocon Team - IIT Patna</h3>
+                <span class="project-date">Aug 2023 – July 2025</span>
+            </div>
+            <div class="timeline-role">3D Modeler & Prototyping Engineer</div>
+            <ul style="margin-left: 1.2rem; color: #cbd5e1; margin-top: 1rem;">
+                <li>Represented IIT Patna at DD Robocon Nationals, advancing to Stage 3 among 80+ colleges while collaborating in a 30-member team.</li>
+                <li>Engineered critical mechanical components including a custom bot chassis and ball-lifting system using SolidWorks.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2>Publications & Achievements</h2>
+        <div class="timeline-item">
+            <div class="timeline-header">
+                <h3 style="color: #fff;">Canonical Benchmark Assessment of SU2</h3>
+                <span class="project-date">May – Jun 2024</span>
+            </div>
+            <div class="timeline-role" style="margin-bottom: 1rem;">Co-author / Research Publication</div>
+            <ul style="margin-left: 1.2rem; color: #cbd5e1;">
+                <li>Performed aerodynamic simulations on complex wing geometries to validate solver accuracy.</li>
+                <li style="margin-top: 0.5rem;"><strong>High-Performance Computing:</strong> Successfully utilized Param Rudra (IIT Patna's Supercomputing facility) to execute high-fidelity CFD simulations.</li>
+                <li style="margin-top: 0.5rem;"><strong>Competitive Robotics:</strong> Qualified for Stage 3 (Nationals) for two consecutive years at DD Robocon.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Ayush. Built with code & coffee.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
